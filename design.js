@@ -141,6 +141,6 @@ Cargo.Event.on("element_resizer_init", function(plugin) {
 	});
 });
 
-Cargo.Event.on("freshbox_destroy_hotkeys", function() {
+Cargo.Event.on("fullscreen_destroy_hotkeys", function() {
 	Design.bindHotKeys();
 });
