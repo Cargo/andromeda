@@ -136,11 +136,10 @@
 {{#route feed display_options.feed_route_url}}
 
 	<div class="container">
-
+		{{#if site.filter}}
+			<div class="filter">Filter: <span class="keyword">{{ site.filter }}</span> → <a class="view_all" href="{{ site.direct_link }}{{ display_options.feed_route_url }}">view all</a></div>
+		{{/if}}
 		<div id="feed" class="feed clear" data-view="Feed" data-set="Projects" data-autopaginate="true">
-			{{#if site.filter}}
-				<div class="filter">Filter: <span class="keyword">{{ site.filter }}</span> → <a class="view_all" href="{{ site.direct_link }}{{ display_options.feed_route_url }}">view all</a></div>
-			{{/if}}
 			{{#projects}}
 
 				<div class="project_container" data-id="{{ id }}" {{#if bgcolor}}style="background: #{{ bgcolor }}"{{/if}}>

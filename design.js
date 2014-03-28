@@ -5,8 +5,9 @@
 var Design = {
 	goToNextProject: function() {
 		var route = Cargo.Helper.GetCurrentRoute();
+		var is_feed_view = !!($('[data-view="Feed"]').length > 0);
 
-		if (route == "feed" || route == "") {
+		if (is_feed_view || route == "Feed" || route == "") {
 			var nextContainer = Design.findActiveProject().next();
 			if (nextContainer.length > 0) {
 				$(".project_container.active").removeClass("active");
@@ -22,8 +23,9 @@ var Design = {
 
 	goToPrevProject: function() {
 		var route = Cargo.Helper.GetCurrentRoute();
+		var is_feed_view = !!($('[data-view="Feed"]').length > 0);
 
-		if (route == "feed" || route == "") {
+		if (is_feed_view || route == "Feed" || route == "") {
 			var prevContainer = Design.findActiveProject().prev();
 			if (prevContainer.length > 0) {
 				$(".project_container.active").removeClass("active");
@@ -38,39 +40,7 @@ var Design = {
 	},
 
 	findActiveProject: function() {
-		var activeProject = $(".project_container.active"),
-			windowHeight = $(window).height(),
-			windowScrollTop = $(window).scrollTop(),
-			windowScrollBottom = windowScrollTop + windowHeight;
-
-		if (activeProject.length > 0) {
-			var projectHeight = activeProject.height(),
-				projectTop = Math.floor(activeProject.offset().top) - 51,
-				projectBottom = Math.ceil(projectTop + projectHeight) + 51;
-
-			if (windowScrollTop >= projectTop && windowScrollBottom <= projectBottom) {
-				return activeProject;
-			}
-		}
-
-		// Nothing returned, find closest and mark it as active
-		var container_top, container_height, container_center, distToCenter,
-			bestResult = 9e9,
-			closestContainer = $();
-
-		$(".project_container").each(function() {
-			container_top = $(this).position().top;
-			container_height = $(this).height();
-			container_center = container_top + (container_height / 2);
-
-			distToCenter = Math.abs(windowScrollTop - container_center);
-			if (distToCenter < bestResult) {
-				bestResult = distToCenter;
-				closestContainer = $(this);
-			}
-		});
-
-		return closestContainer;
+		return $(".project_container:in-viewport");
 	},
 
 	bindHotKeys: function() {
@@ -141,6 +111,6 @@ Cargo.Event.on("element_resizer_init", function(plugin) {
 	});
 });
 
-Cargo.Event.on("freshbox_destroy_hotkeys", function() {
+Cargo.Event.on("fullscreen_destroy_hotkeys", function() {
 	Design.bindHotKeys();
 });
