@@ -757,7 +757,6 @@
 		"available": true,
 		"value": {
 			"enabled": true,
-			"design": "light",
 			"exclude_tablets": true
 		},
 		"segments": [
@@ -766,34 +765,10 @@
 				"reference": "enabled"
 			},
 			{
-				"type": "label-preface",
-				"reference": "enabled",
-				"text": "Use mobile design"
-			},
-			{
-				"type": "radio",
-				"id": "light",
-				"depends_on": "enabled",
-				"reference": "design",
-				"value": "light"
-			},
-			{
-				"type": "label",
-				"input": "light",
-				"text": "Light"
-			},
-			{
-				"type": "radio",
-				"id": "dark",
-				"depends_on": "enabled",
-				"reference": "design",
-				"value": "dark"
-			},
-			{
 				"type": "label",
 				"id": "designs",
-				"input": "dark",
-				"text": "Dark"
+				"reference": "enabled",
+				"text": "Use mobile design"
 			},
 			{
 				"type": "boolean",
