@@ -9,13 +9,20 @@ var Design = {
 
 		if (is_feed_view || route == "Feed" || route == "") {
 			var nextContainer = Design.findActiveProject().next();
+
 			if (nextContainer.length > 0) {
 				$(".project_container.active").removeClass("active");
 				nextContainer.addClass("active");
 
 				var newPos = nextContainer.offset().top;
 				Design.doScroll(newPos, newPos - 50, 100);
-			}
+				
+				if(nextContainer.next().length <= 0 && Cargo.Helper.GetTotalPages() > Cargo.API.Config.current_page) {
+					Cargo.View.Autopaginate.Data.is_updating = true;
+					Cargo.View.Main.NextPage();
+				}
+			} 
+
 		} else {
 			Action.Project.Next();
 		}
